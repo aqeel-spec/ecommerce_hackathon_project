@@ -10,4 +10,12 @@ export const client = createClient({
     projectId : projectId,
     token : process.env.NEXT_SANITY_ACCESS_TOKEN,
     useCdn : true
+});
+
+export const clientNoCdn = createClient({
+    apiVersion : process.env.NEXT_PUBLIC_SANITY_API_VERSION,
+    dataset : dataset,
+    projectId : projectId,
+    token : process.env.NEXT_SANITY_ACCESS_TOKEN,
+    useCdn : false
 })

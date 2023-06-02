@@ -8,7 +8,7 @@ import Hero from '@/components/section/Hero';
 import React from 'react'
 // import myConfiguredSanityClient from './sanityClient'
 import imageUrlBuilder from '@sanity/image-url'
-import { product } from '../../sanity/product';
+// import { product } from '../../sanity/product';
 import Events from '@/components/section/Events';
 import Product from '@/components/section/Product';
 import Features from '@/components/section/Features';
@@ -45,8 +45,10 @@ export default async function Home() {
 //   image : any
 // }
 
+
+{/** ###################### I created image builder in components ##################### */}
 // const builder = imageUrlBuilder(client)
-// function urlFor(source : any) {
+// export function urlFor(source : any) {
 //   return builder.image(source)
 // }
 

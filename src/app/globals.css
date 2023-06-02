@@ -274,5 +274,60 @@
   .copyright span {
     @apply font-bold text-base leading-4 text-primary
   }
+  /* product cart for all products */
+  .Allproduct-card {
+    @apply w-[250px] mx-auto
+  }
+  .Allproduct-card Image {
+    @apply w-[100%] h-[100%]
+  }
+  .Allproduct-name, .Allproduct-price {
+    @apply font-semibold leading-6 tracking-wide text-primary
+  }
+  .Allproduct-name {
+    @apply text-lg mt-2
+  }
+  .Allproduct-tag {
+    @apply font-semibold text-base leading-4 text-[#888888] mt-2
+  }
+  .Allproduct-price {
+    @apply text-xl mt-4
+  }
+
+  /* product card details */
+  .products {
+    @apply bg-[#FCFCFC]
+  }
   
+  .product-images {
+    @apply flex flex-1 gap-8
+  }
+  .size li {
+    @apply w-[40px] h-[40px] flex justify-center items-center rounded-full cursor-pointer text-[1rem] text-gray-600
+  }
+  .size li:hover {
+    @apply hover:shadow-md hover:bg-white  hover:text-primary hover:ease-in-out hover:transition delay-100 duration-200 shadow-primary hover:text-black hover:border-sky-200
+  } 
+  .btn2 {
+    @apply font-bold  bg-sky-200 hover:bg-sky-50 items-center hover:border-[1px] border-[1px] hover:border-[#000000] border-[#f1f1f1] cursor-pointer rounded-[50%] flex shrink-0 py-[5px] px-[10px] 
+  }
+  .btn3 {
+    @apply font-bold  bg-black hover:bg-sky-200 items-center hover:border-[1px] border-[1px] hover:text-black text-white hover:border-black border-white/90 cursor-pointer rounded-[50%] flex shrink-0 py-[5px] px-[10px] 
+  }
+  /* product details page */
+  .product-desc-container {
+    @apply bg-white flex flex-col mt-16 gap-8 p-12
+  }
+  .desc-title {
+    @apply border-b-[2px] border-[#c4c4c4] relative w-full h-[150px]
+  }
+  .desc-title h1 {
+    @apply font-bold text-2xl leading-6 tracking-wide text-primary pb-12 z-[2] top-[45%] absolute
+  }
+  .desc-background {
+    @apply font-extrabold text-9xl text-[#f2f3f7] opacity-70 z-[-1] h-full w-full
+  }
+  /* desc and care details */
+  
+
 }
