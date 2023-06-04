@@ -325,7 +325,7 @@
     @apply font-bold text-2xl leading-6 tracking-wide text-primary pb-12 z-[2] top-[45%] absolute
   }
   .desc-background {
-    @apply font-extrabold text-9xl text-[#f2f3f7] opacity-70 z-[-1] h-full w-full
+    @apply font-extrabold text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-[#f2f3f7] opacity-70 z-[-1] h-full w-full
   }
   /* desc and care details */
   .hbtn:hover {
