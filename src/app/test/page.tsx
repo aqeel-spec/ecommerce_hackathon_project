@@ -3,7 +3,7 @@ import React, { useRef,useState } from 'react';
 import { useContext } from 'react';
 import { SearchContext } from '@/src/context/searchContext';
 
-const page = () => {
+const Test = () => {
 
   const {search} = useContext(SearchContext);
 
@@ -17,7 +17,7 @@ const page = () => {
   );
 }
 
-export default page;
+export default Test;
 
 
 // import React, { useRef } from 'react'

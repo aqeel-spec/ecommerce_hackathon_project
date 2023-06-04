@@ -6,5 +6,6 @@ export interface IProduct {
     _id : string,
     images : any[],
     tag : {tag : string},
-    slug: { current : string }
+    slug: { current : string },
+    usecase: {category : string} ,
 }

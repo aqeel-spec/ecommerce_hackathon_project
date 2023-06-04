@@ -1,47 +1,54 @@
 "use client";
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { urlFor } from "@/components/ImageBuilder";
 import { IProduct } from "@/src/types/product";
 import { Loader } from "../components/Loader";
-import Link from "next/link";
 import Image from "next/image";
-import { useParams, useRouter, usePathname } from "next/navigation";
-import { PriceDropdown } from "./priceVariation";
+import { useRouter, usePathname } from "next/navigation";
 import { formatPrice } from "@/src/lib/helper";
+import { SearchContext } from "@/src/context/searchContext";
 
 const AllProductsCard = ({ data }: { data: IProduct[] }) => {
   const currentPath = usePathname();
   const router = useRouter();
-  const slug = useParams().slug;
 
-  // sorted product
-  const [sorting, setSorting] = useState<string>();
+  // search value using useContext
+  const { search } = useContext(SearchContext);
+
   const [sortedProducts, setSortedProducts] = useState(data);
+  const [selectedValue , setSelectedValue] = useState('');
 
-  // React.ChangeEvent<HTMLSelectElement>
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    console.log("Selected value:", selectedValue);
-    setSorting(selectedValue);
-    const tempArray = data ;
-    if(selectedValue == 'low') {
-      tempArray.sort((product1 , product2) => product1.price - product2.price )
-    }else {
-      tempArray.sort((product1 , product2) => product2.price - product1.price )
+  
+  useEffect(() => {
+    const tempArray = [...data];
+    if (selectedValue === "low") {
+      tempArray.sort((product1, product2) => product1.price - product2.price);
+    } else {
+      tempArray.sort((product1, product2) => product2.price - product1.price);
     }
-    setSortedProducts(tempArray)
-  };
+    setSortedProducts(tempArray);
+  }, [selectedValue]);
 
+  const filteredData = sortedProducts.filter((product) => {
+
+    const fData =
+      product.name.toLowerCase().includes(search.value.toLowerCase()) ||
+      product.tag.tag.toLowerCase().includes(search.value.toLowerCase()) ||
+      product.usecase.category.toLowerCase().includes(search.value.toLowerCase());
+    return fData;
+  });
+  
 
   return (
     <div className="max-w-screen-lg justify-between py-2 my-16 mx-auto">
+      <div className=""> search bar value is : {search.value} </div>
       <div className="mb-4 ">
         <select
           id="pricing"
-          onChange={handleChange}
+          onChange={(e) => setSelectedValue(e.target.value)}
           className=" lg:mx-0 cursor-pointer mx-auto max-w-xs py-3 px-4 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 "
         >
-          <option selected className="p-4">
+          <option defaultValue="Select sorting type" className="p-4">
             Select sorting type
           </option>
           <option value="low" className="p-4">
@@ -54,8 +61,8 @@ const AllProductsCard = ({ data }: { data: IProduct[] }) => {
       </div>
       <Suspense fallback={<Loader />}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-between items-center gap-2">
-          {sortedProducts &&
-            sortedProducts.map((item) => (
+          {filteredData &&
+            filteredData.map((item) => (
               <div
                 className="Allproduct-card cursor-pointer"
                 key={item._id}
@@ -90,32 +97,3 @@ const AllProductsCard = ({ data }: { data: IProduct[] }) => {
 
 export default AllProductsCard;
 
-// import Link from 'next/link';
-// import React, { Suspense } from 'react';
-// import Image from 'next/image';
-// import { urlFor } from "@/components/ImageBuilder";
-// import { IProduct } from '@/src/types/product';
-// import {Loader} from '../components/Loader';
-
-// const AllProductsCard = ( { data } : { data : IProduct[] } ) => {
-//   return (
-//     <div className=" max-w-screen-lg justify-between  py-2  my-16 mx-auto  ">
-//         <Suspense fallback={<Loader/>} >
-//             <Link href={`#`} className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3   justify-between items-center gap-2">
-//             {
-//                 data && data.map((item) => (
-//                 <div className="Allproduct-card" key={item._id} >
-//                      <Image src={urlFor(item.images[0]).url()} alt={item._id} height={270} width={250} />
-//                     <h1 className="Allproduct-name"> {item.name} </h1>
-//                     <h2 className="Allproduct-tag"> { item.tag && item.tag.tag } </h2>
-//                     <h3 className="Allproduct-price"> ${item.price} </h3>
-//                 </div>
-//                 ))
-//             }
-//             </Link>
-//         </Suspense>
-//         </div>
-//   )
-// }
-
-// export default AllProductsCard

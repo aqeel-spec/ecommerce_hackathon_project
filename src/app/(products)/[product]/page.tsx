@@ -3,73 +3,43 @@ import { client, clientNoCdn } from "@/src/lib/sanityClient";
 import { IProduct } from "@/src/types/product";
 //import { useParams } from "next/navigation";
 
-export const femaleData = async (documentName: string) => {
+const femaleData = async (documentName: string) => {
   if (documentName == "products") {
         const res = await client.fetch(`*[_type=="products"]{
             name,
             price,
-            description,
-            care,
             _id,
             images,
             tag -> {
                 tag
             },
-            slug
-            }`
+            slug,
+            usecase -> {
+              category
+            },
+          }`,
+            
         );
         return res
     }else {
         const res = await client.fetch(`*[_type=="products" && usecase->category == $documentName]{
             name,
             price,
-            description,
-            care,
             _id,
             images,
             tag -> {
                 tag
             },
-            slug
+            slug,
+            usecase -> {
+              category
+            },
             }`,{
                 documentName
             }
         );
         return res
     }
-
-  // const res = await client.fetch(`*[_type=="products" && usecase->category == $documentName]{
-  //     name,
-  //     price,
-  //     description,
-  //     care,
-  //     _id,
-  //     images,
-  //     tag -> {
-  //         tag
-  //     },
-  //     slug
-
-  // }` , {
-  //     documentName
-  // } );
-  //     const res2 = await client.fetch(`
-  //     *[_type="products" && usecase->category == $documentName] {
-  //       name,
-  //       price,
-  //       description,
-  //       care,
-  //       _id,
-  //       images,
-  //       tag -> {
-  //         tag
-  //       },
-  //       slug
-  //     }
-  //   `, {
-  //     documentName,
-  //   });
-  //     return res
 };
 
 export default async function Page({

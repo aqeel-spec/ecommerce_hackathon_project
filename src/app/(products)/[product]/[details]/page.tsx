@@ -3,9 +3,7 @@ import { client } from '@/src/lib/sanityClient';
 import React, { useState } from 'react';
 import DetailCard from '@/components/DetailCard';
 
-
-
-export const productDdata = async (productSlug?: string) => {
+const productDdata = async (productSlug: string) => {
   const res = await client.fetch(`*[_type == "products" && slug.current == $productSlug] {
     name,
     price,
