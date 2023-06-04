@@ -13,7 +13,8 @@ const productDdata = async (productSlug: string) => {
     images,
     tag -> {
       tag
-  },
+    },
+    slug,
   }`, {
     productSlug
 });
