@@ -8,6 +8,7 @@ import Image from "next/image";
 import { urlFor } from "./ImageBuilder";
 import { Button } from "./ui/button";
 import { CgShoppingCart } from "react-icons/cg";
+import { formatPrice } from "@/src/lib/helper";
 
 const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [index, setIndex] = useState(0);
@@ -72,11 +73,11 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                   </div>
                 </div>
                 <div className="flex gap-4 items-center ">
-                  <Button className=" text-lg font-normal gap-1 ">
+                  <Button className="hbtn rounded-xl text-lg font-normal gap-1 m-2 p-6 text-white ">
                     {" "}
                     <CgShoppingCart size={20} /> Add to card
                   </Button>
-                  <h1 className="text-2xl  font-bold "> ${item.price}.00 </h1>
+                  <h1 className="text-2xl  font-bold "> {formatPrice(item.price,"PKR")} </h1>
                 </div>
               </div>
             </div>
@@ -97,8 +98,8 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
               <div className="flex flex-1  gap-2  ">
               <h4 className=" font-bold text-base leading-6 text-shade ">PRODUCT CARE</h4>
                 <ul className=" list-disc mx-auto  font-light text-base tracking-wider leading-7 text-justify text-black">
-                  {item.care.map((list) => (
-                    <li className="">
+                  {item.care.map((list,ind) => (
+                    <li className="" key={ind} >
                       {list}
                     </li>
                   ))}

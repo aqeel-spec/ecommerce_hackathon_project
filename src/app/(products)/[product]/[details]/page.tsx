@@ -1,6 +1,6 @@
 "use client"
 import { client } from '@/src/lib/sanityClient';
-import React from 'react';
+import React, { useState } from 'react';
 import DetailCard from '@/components/DetailCard';
 
 
@@ -22,7 +22,9 @@ export const productDdata = async (productSlug?: string) => {
   return res
 }
 
-const page = async ({params, searchParams  }: { params: { details: string } ,searchParams: { id: string }, } ) => {
+const page = async ({params  }: { params: { details: string }  } ) => {
+  
+  
 
   const slug = params.details;
   const data = await productDdata(slug);

@@ -328,6 +328,8 @@
     @apply font-extrabold text-9xl text-[#f2f3f7] opacity-70 z-[-1] h-full w-full
   }
   /* desc and care details */
-  
+  .hbtn:hover {
+    @apply   transition-all duration-500 bg-gradient-to-br to-white via-black from-red-500  hover:bg-right-bottom 
+  }
 
 }

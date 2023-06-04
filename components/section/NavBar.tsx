@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image";
 import {  Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
@@ -14,8 +15,12 @@ import {
   navigationMenuTriggerStyle,
 } from "./../ui/navigation-menu";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import {RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+
+// value using useContext
+import { useState, useRef, useContext, useEffect } from 'react';
+import { SearchContext } from "@/src/context/searchContext";
+
 
 const manuLi = [
   {
@@ -38,12 +43,18 @@ const manuLi = [
 
 const Navbar = () => {
   const router = useRouter();
-  const [toggleMenu, setToggleMenu] = useState(false);
 
-  // set condition for dropdown menu
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const {search,setSearch} = useContext(SearchContext);
+  
+ 
+
   const handleClick = () => {
     setToggleMenu(!toggleMenu)
   }
+   
+
+  
 
   return (
     <nav className="flex lg:px-20 px-10 justify-between items-center h-20 ">
@@ -69,10 +80,11 @@ const Navbar = () => {
   <div className="lg:flex hidden border-[1px] border-[#e4e5eb] items-center w-[30%] rounded-[5px] pl-[5px] ">
     <Search className="bg-white rounded-l p-0 m-0 h-[1em] w-[1em]  " />{" "}
     <input
+       onChange={(e) => setSearch({value : e.target.value})}
       type="text"
       placeholder="What you are looking for"
       className="rounded-r border-none p-[5px] w-full text-sm "
-    ></input>
+    />
   </div>
   <div className="lg:flex hidden p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
       <span className="absolute top-1 right-1 transform translate-x-2 -translate-y-2 h-6 w-6 text-center rounded-full bg-red-500 text-white">
@@ -108,5 +120,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
