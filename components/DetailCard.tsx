@@ -1,7 +1,7 @@
 import { client } from "@/src/lib/sanityClient";
 import { usePathname, useRouter } from "next/navigation";
 import { IProduct } from "@/src/types/product";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "./ImageBuilder";
 import { Button } from "./ui/button";
@@ -10,7 +10,36 @@ import { formatPrice } from "@/src/lib/helper";
 
 const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [index, setIndex] = useState(0);
+  const iData = data[0];
+  const {_id} = iData;
   console.log("card data is ->", data);
+  console.log("id of product is ::",_id)
+
+  const handleAddToCart = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/cart`, {
+        method: "POST",
+        body: JSON.stringify({
+          product_id: _id
+        })
+      });
+      const result = await res.json();
+      console.log("item id added", result);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [_id]);
+
+  // const handleAddToCart = async () => {
+  //   const res = await fetch(`/api/cart`,{
+  //     method : "POST",
+  //     body : JSON.stringify({
+  //       product_id : _id
+  //     })
+  //   });
+  //   const result = await res.json();
+  //   console.log("item id added",result)
+  // }
 
   return (
     <div className="products p-8 lg:p-20 w-full h-auto">
@@ -70,7 +99,7 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                   </div>
                 </div>
                 <div className="flex flex-nowrap gap-2 items-center">
-                  <Button className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
+                  <Button onClick={handleAddToCart}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
                     <CgShoppingCart size={20} /> Add to card
                   </Button>
                   <h1 className=" text-xl lg:text-2xl font-bold">
