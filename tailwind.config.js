@@ -25,6 +25,7 @@ module.exports = {
         primary : "#212121",
         watermark : "#f2f3f7",
         shade : "#666666",
+        yellow : "#ffc700",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

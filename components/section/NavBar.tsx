@@ -20,7 +20,7 @@ import {RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 // value using useContext
 import { useState, useRef, useContext, useEffect } from 'react';
 import { SearchContext } from "@/src/context/searchContext";
-
+import { useStateContext } from "@/src/context/cartContext";
 
 const manuLi = [
   {
@@ -54,7 +54,7 @@ const Navbar = () => {
   }
    
 
-  
+  const {showCart, setShowCart, totalQty} = useStateContext();
 
   return (
     <nav className="flex lg:px-20 px-10 justify-between items-center h-20 ">
@@ -86,12 +86,23 @@ const Navbar = () => {
       className="rounded-r border-none p-[5px] w-full text-sm "
     />
   </div>
-  <div className="lg:flex hidden p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
-      <span className="absolute top-1 right-1 transform translate-x-2 -translate-y-2 h-6 w-6 text-center rounded-full bg-red-500 text-white">
-          0
-      </span>
-      <ShoppingCart className="" />
-  </div>
+  {
+    showCart ? (
+      <Link onClick={() => setShowCart(false)} href={`/cart`} className="lg:flex hidden p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
+        <span className="absolute top-1 right-1 transform translate-x-2 -translate-y-2 h-6 w-6 text-center rounded-full bg-red-500 text-white">
+        {totalQty}
+        </span>
+        <ShoppingCart className="" />
+       </Link>
+    ) : (
+      <div onClick={() => setShowCart(true)}   className="lg:flex hidden p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
+        <span className="absolute top-1 right-1 transform translate-x-2 -translate-y-2 h-6 w-6 text-center rounded-full bg-red-500 text-white">
+        {totalQty}
+        </span>
+        <ShoppingCart className="" />
+    </div>
+    )
+  }
   <div className={`  lg:hidden items-end w-[300px] relative flex flex-col`}>
         {!toggleMenu ? (
           <div className=" cursor-pointer " onClick={handleClick} >

@@ -7,6 +7,7 @@ import { urlFor } from "./ImageBuilder";
 import { Button } from "./ui/button";
 import { CgShoppingCart } from "react-icons/cg";
 import { formatPrice } from "@/src/lib/helper";
+import { useStateContext } from "@/src/context/cartContext";
 
 const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [index, setIndex] = useState(0);
@@ -14,6 +15,8 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
   const {_id} = iData;
   console.log("card data is ->", data);
   console.log("id of product is ::",_id)
+
+  const {decQty, incQty, qty, onAdd} = useStateContext();
 
   const handleAddToCart = useCallback(async () => {
     try {
@@ -93,13 +96,16 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                 <div className="flex items-center gap-4">
                   <h1 className="font-bold text-base text-black">Quantity :</h1>
                   <div className="flex items-center text-center gap-4">
-                    <div className="btn2">-</div>
-                    <p>1</p>
-                    <div className="btn3">+</div>
+                    <div className="btn2" onClick={decQty}>-</div>
+                    <p>{qty}</p>
+                    <div className="btn3" onClick={incQty}>+</div>
                   </div>
                 </div>
                 <div className="flex flex-nowrap gap-2 items-center">
-                  <Button onClick={handleAddToCart}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
+                  <Button onClick={() => {
+                   // handleAddToCart(),
+                    onAdd(item,qty)
+                  }}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
                     <CgShoppingCart size={20} /> Add to card
                   </Button>
                   <h1 className=" text-xl lg:text-2xl font-bold">

@@ -49,6 +49,7 @@ export default async function Page({
 }) {
   const category = params.product;
   const data: IProduct[] = await femaleData(category);
+  
 
   if(data.length == 0) {
     return (<p className="text-4xl text-center mx-auto text-red-300">Sorry we dont have any data for such post</p>)

@@ -6,6 +6,7 @@ import Footer from "@/components/section/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 import SearchProvider from "../context/searchContext";
+import CartProvider from "../context/cartContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -21,9 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} max-w-none w-auto `}>
         <SearchProvider>
+          <CartProvider>
+
           <Navbar />
           {children}
           <Footer />
+          </CartProvider>
         </SearchProvider>
       </body>
     </html>
