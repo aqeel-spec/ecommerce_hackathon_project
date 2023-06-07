@@ -5,12 +5,30 @@ import {AiOutlineShopping} from 'react-icons/ai';
 import { urlFor } from '@/components/ImageBuilder';
 import {HiOutlineTrash} from "react-icons/hi";
 import { formatPrice } from '@/src/lib/helper';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
 
     const {cartItems, totalPrice, totalQty, onRemove, toggleCartItemQuantity} = useStateContext();
+   
+    const handlePayNow = async () => {
 
-
+        try {
+            const response = await fetch('/api/stripe', {
+                method: 'POST',
+                body: JSON.stringify(cartItems),
+              });
+              if(response.ok) {
+                toast.loading('Redirecting...');
+              }
+              const data = await response.json();
+              console.log("res data of stripe ",data)
+              
+        } catch (error) {
+            console.log(error)
+        }
+        
+      }
   return (
     <div className='  md:p-12 justify-center items-center mx-auto '>
         {/* name */}
@@ -18,7 +36,7 @@ const Cart = () => {
         {/* cart container */}
         <div className="flex flex-col md:flex-row  justify-between gap-8 mt-8 ">
             {/* cart items */}
-            <div className="flex flex-col gap-4 md:gap-16 mt-8 flex-1">
+            {/* <div className="flex flex-col gap-4 md:gap-16 mt-8 flex-1" */}
                 {/* empty cart */}
                 {cartItems.length < 1 && (
                         <div className="flex flex-col m-auto ">
@@ -94,15 +112,14 @@ const Cart = () => {
                         </div>
                         </div>
                         <div className=" text-end mx-auto items-center justify-center justify-items-center text-white font-sans  ">
-                        <button className="hbtn mx-auto justify-end px-5 py-[2px] rounded-[4px] w-full bg-primary  ">
+                        <button type="button" onClick={handlePayNow} className="hbtn mx-auto justify-end px-5 py-[2px] rounded-[4px] w-full bg-primary  ">
                             PAY NOW
                         </button>
                         </div>
                     </div>
                 )
             }
-        </div>
-    </div>
+     </div>
   )
 }
 
