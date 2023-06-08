@@ -6,23 +6,30 @@ import { urlFor } from '@/components/ImageBuilder';
 import {HiOutlineTrash} from "react-icons/hi";
 import { formatPrice } from '@/src/lib/helper';
 import { toast } from 'react-toastify';
+import getStripe from '@/src/lib/getStripe';
 
 const Cart = () => {
 
     const {cartItems, totalPrice, totalQty, onRemove, toggleCartItemQuantity} = useStateContext();
    
     const handlePayNow = async () => {
-
+        const stripe = await getStripe()
         try {
             const response = await fetch('/api/stripe', {
                 method: 'POST',
-                body: JSON.stringify(cartItems),
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({cartItems}),
               });
-              if(response.ok) {
-                toast.loading('Redirecting...');
-              }
+
+              if(response.status === 500) return
+
               const data = await response.json();
               console.log("res data of stripe ",data)
+              toast.loading('Redirecting...')
+
+              stripe?.redirectToCheckout({ sessionId: data.id })
               
         } catch (error) {
             console.log(error)
