@@ -23,7 +23,7 @@ export const POST = async (request : NextRequest) => {
         payment_method_types : ['card'],
         billing_address_collection : "auto",
         success_url : `${process.env.URL}/success`,
-        cancel_url : `${process.env.URL}/cancled`,
+        cancel_url : `${process.env.URL}/`,
         line_items :     cartItems?.map((item : any) => {
             const img = item.images[0].asset._ref;
             const newImage = img.replace('image-', 'https://cdn.sanity.io/images/dow10h3v/production/').replace('-png', '.png');

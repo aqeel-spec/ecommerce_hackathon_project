@@ -41,7 +41,6 @@ const AllProductsCard = ({ data }: { data: IProduct[] }) => {
 
   return (
     <div className="max-w-screen-lg justify-between py-2 my-16 mx-auto">
-      <div className=""> search bar value is : {search.value} </div>
       <div className="mb-4 ">
         <select
           id="pricing"

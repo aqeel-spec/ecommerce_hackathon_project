@@ -39,9 +39,10 @@ const Cart = () => {
   return (
     <div className='  md:p-12 justify-center items-center mx-auto '>
         {/* name */}
-        <h2 className='text-3xl font-bold text-primary '>Shopping Cart</h2>
+        <h2 className='text-3xl md:text-left text-center  font-bold text-primary '>Shopping Cart</h2>
         {/* cart container */}
-        <div className="flex flex-col md:flex-row  justify-between gap-8 mt-8 ">
+       <div className=" mx-auto flex gap-4 p-8 lg:flex-row flex-col ">
+       <div className="  mt-8 ">
             {/* cart items */}
             {/* <div className="flex flex-col gap-4 md:gap-16 mt-8 flex-1" */}
                 {/* empty cart */}
@@ -56,22 +57,22 @@ const Cart = () => {
                {
                      cartItems.length >= 1 && cartItems.map((item) => (
                         // item card
-                        <div className="flex flex-col    md:flex-row  " key={item._id}>
-                            {/* item image */}
-                            <div className=" w-full md:w-[80%] h-[20%]  ">
+                        <div className="   flex flex-wrap items-center " key={item._id}>
+                            {/* item image // w-full  md:w-[80%] h-[20%]  */}
+                            <div className=" my-4 ">
                                 <img src={urlFor(item.images && item.images[0]).url()} alt={item.name} />
                             </div>
                             {/* item details */}
-                            <div className="flex md:gap-y-4 gap-y-0 flex-col justify-between w-auto md:w-[70%] ">
+                            <div className=" justify-around my-[20px] md:my-0 ml-auto w-full md:w-[50%]  ">
                                 {/* name and remove  icon */}
-                                <div className="flex justify-center gap-4 md:justify-between ">
+                                <div className="flex  gap-4 md:justify-evenly ">
                                     <h3 className=' text-xl md:text-2xl lg:text-3xl  text-primary  '> {item.name} </h3>
-                                    <button type='button' className='hover:text-red-500' onClick={() => onRemove(item)}>
+                                    <button type='button' className='ml-auto hover:text-red-500' onClick={() => onRemove(item)}>
                                     <HiOutlineTrash size={28} />  
                                     </button>
                                 </div>
                                 {/* item tags */}
-                                <h2 className=" my-8 text-2xl font-semibold opacity-30">
+                                <h2 className=" text-2xl font-semibold opacity-30">
                                     {item.tag.tag}
                                 </h2>
                                 {/* delivery estiumation */}
@@ -79,12 +80,12 @@ const Cart = () => {
                                  {/* item delivery time */}
                                  <p className=' text-yellow font-semibold text-xl '>5 Working Days</p>
                                  {/* item price */}
-                                <div className="flex gap-4 justify-items-center  ">
+                                <div className="flex justify-items-center  ">
                                     <span className=" text-xl lg:text-2xl font-bold">
                                         {formatPrice((item.price * item.quantity), "PKR")}
                                     </span>
                                     {/* plus and minus btn */}
-                                    <div className="flex items-center text-center gap-4">
+                                    <div className="flex ml-auto gap-4 items-center text-center ">
                                         <div className="btn2" onClick={() => toggleCartItemQuantity(item._id,"dec")}>-</div>
                                         <p>{item.quantity}</p>
                                         <div className="btn3" onClick={() => toggleCartItemQuantity(item._id,'inc')}>+</div>
@@ -98,7 +99,7 @@ const Cart = () => {
             </div>
             {
                 cartItems.length >= 1 &&  (
-                    <div className="mt-2  border-[1px] max-h-[360px] bg-white/60 border-yellow shadow-sm shadow-primary p-4 flex-grow space-y-6 mx-auto text-center text-black max-w-full lg:max-w-sm  ">
+                    <div className="mt-2 md:w-[40%] w-full border-[1px] max-h-[360px] bg-white/60 border-yellow shadow-sm shadow-primary p-4 flex-grow space-y-6 mx-auto text-center text-black max-w-full lg:max-w-sm  ">
                         <h1 className="py-6 text-2xl font-bold text-black">Order Details</h1>
                         <div className="text-sm  space-y-6  divide-yellow-500 text-black">
                         <div className=" border-b-[1px] pb-1 border-b-orange flex px-2 justify-between m-2  ">
@@ -126,6 +127,7 @@ const Cart = () => {
                     </div>
                 )
             }
+       </div>
      </div>
   )
 }

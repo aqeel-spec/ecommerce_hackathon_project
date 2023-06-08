@@ -6,8 +6,28 @@ import { Navigation, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import  Link  from 'next/link';
 import { products } from './dummyProduct';
+import { client } from '@/src/lib/sanityClient';
+import { urlFor } from '../ImageBuilder';
+import { formatPrice } from '@/src/lib/helper';
 
-const Product = () => {
+// type HProduct = {
+//   name : string,
+//   images : any[],
+//   price : number,
+//   _id : string,
+//   slug : string
+// }
+
+const Product = async () => {
+
+  // const res : HProduct[] = await client.fetch(`*[_type == "products"]{
+  //   name,
+  //   images,
+  //   price,
+  //   _id,
+  //   slug
+  // }`)
+  // console.log("data for homepage product",res)
 
   return (
     <div className='py-[30px] event-container'>
@@ -48,9 +68,13 @@ const Product = () => {
             <SwiperSlide key={index} className='  cursor-pointer '>
               
               <Link className="product-card flex flex-col  items-center" href={`#${product.name}`}>
-                <Image src={product.image} alt={`product ${index + 1}`} height={400} width={380} />
+                <Image 
+                   // src={urlFor(product.images[0]).url()}
+                   src={product.image}
+                  alt={`product ${index + 1}`}
+                   height={800} width={480} />
                 <p className="product-name ">{product.name}</p>
-                <p className="product-price ">{product.price}</p>
+                <p className="product-price ">{formatPrice( Number(product.price) , "PKR")}</p>
               </Link>
             </SwiperSlide>
           ))}

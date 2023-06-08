@@ -18,31 +18,32 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
 
   const {decQty, incQty, qty, onAdd} = useStateContext();
 
-  const handleAddToCart = useCallback(async () => {
-    try {
-      const res = await fetch(`/api/cart`, {
-        method: "POST",
-        body: JSON.stringify({
-          product_id: _id
-        })
-      });
-      const result = await res.json();
-      console.log("item id added", result);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [_id]);
+  // const handleAddToCart = useCallback(async () => {
+  //   try {
+  //     const res = await fetch(`/api/cart`, {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         product_id: _id
+  //       })
+  //     });
+  //     const result = await res.json();
+  //     console.log("item id added", result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [_id]);
 
-  // const handleAddToCart = async () => {
-  //   const res = await fetch(`/api/cart`,{
-  //     method : "POST",
-  //     body : JSON.stringify({
-  //       product_id : _id
-  //     })
-  //   });
-  //   const result = await res.json();
-  //   console.log("item id added",result)
-  // }
+  const handleAddToCart = async (id : string , quantity : number ) => {
+    const res = await fetch(`/api/cart`,{
+      method : "POST",
+      body : JSON.stringify({
+        product_id : id,
+        quantity : quantity
+      })
+    });
+    const result = await res.json();
+    console.log("item id added",result)
+  }
 
   return (
     <div className="products p-8 lg:p-20 w-full h-auto">
@@ -103,7 +104,7 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                 </div>
                 <div className="flex flex-nowrap gap-2 items-center">
                   <Button onClick={() => {
-                   // handleAddToCart(),
+                    handleAddToCart(item._id , qty),
                     onAdd(item,qty)
                   }}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
                     <CgShoppingCart size={20} /> Add to card

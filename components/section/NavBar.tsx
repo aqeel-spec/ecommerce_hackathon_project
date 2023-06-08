@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image";
 import {  Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
@@ -41,11 +40,13 @@ const manuLi = [
   }
 ]
 
-const Navbar = () => {
+const Navbar = async () => {
   const router = useRouter();
 
   const [toggleMenu, setToggleMenu] = useState(false);
   const {search,setSearch} = useContext(SearchContext);
+
+  
   
  
 

@@ -5,11 +5,7 @@ export const products = [
       name: 'Brushed Raglan Sweatshirt',
       price: '$195'
     },
-    { 
-      image: product2,
-      name: 'Brushed Raglan Sweatshirt',
-      price: '$545'
-    },
+   
     { 
       image: product3,
       name: 'Flex Sweetshirt',
@@ -24,6 +20,11 @@ export const products = [
       image: product1,
       name: 'Brushed Raglan Sweatshirt',
       price: '$195'
+    },
+    { 
+      image: product2,
+      name: 'Brushed Raglan Sweatshirt',
+      price: '$545'
     },
     // Add more products here
   ];
