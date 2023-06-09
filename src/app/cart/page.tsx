@@ -5,7 +5,7 @@ import {AiOutlineShopping} from 'react-icons/ai';
 import { urlFor } from '@/components/ImageBuilder';
 import {HiOutlineTrash} from "react-icons/hi";
 import { formatPrice } from '@/src/lib/helper';
-import { toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import getStripe from '@/src/lib/getStripe';
 
 const Cart = () => {

@@ -1,10 +1,4 @@
-import Image from 'next/image'
-
-import { client } from "../lib/sanityClient";
-
-import Mycard from '@/components/MyCard';
 import Hero from '@/components/section/Hero';
-
 import React from 'react'
 // import myConfiguredSanityClient from './sanityClient'
 import imageUrlBuilder from '@sanity/image-url'
@@ -13,8 +7,6 @@ import Events from '@/components/section/Events';
 import Product from '@/components/section/Product';
 import Features from '@/components/section/Features';
 import NewsLetters from '@/components/section/NewsLetters';
-import Footer from '@/components/section/Footer';
-
 
 
 export default async function Home() {
@@ -23,6 +15,7 @@ export default async function Home() {
   //const data : IProduct[] = await productData();
 
   return (
+
     <div className='lg:px-20 px-10 '> 
      { /** hero section */ }
      <Hero />

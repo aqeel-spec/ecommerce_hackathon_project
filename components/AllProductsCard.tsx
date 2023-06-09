@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { formatPrice } from "@/src/lib/helper";
 import { SearchContext } from "@/src/context/searchContext";
+import { ToastContainer, toast } from "react-toastify";
 
 const AllProductsCard = ({ data }: { data: IProduct[] }) => {
   const currentPath = usePathname();
@@ -37,6 +38,7 @@ const AllProductsCard = ({ data }: { data: IProduct[] }) => {
       product.usecase.category.toLowerCase().includes(search.value.toLowerCase());
     return fData;
   });
+  
   
 
   return (

@@ -18,7 +18,7 @@ import { formatPrice } from '@/src/lib/helper';
 //   slug : string
 // }
 
-const Product = async () => {
+const Product =  () => {
 
   // const res : HProduct[] = await client.fetch(`*[_type == "products"]{
   //   name,

@@ -8,9 +8,11 @@ import { Button } from "./ui/button";
 import { CgShoppingCart } from "react-icons/cg";
 import { formatPrice } from "@/src/lib/helper";
 import { useStateContext } from "@/src/context/cartContext";
+import { toast } from "react-toastify";
 
 const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [index, setIndex] = useState(0);
+  const [active,setActive] = useState<"xl" | "m" | "l" | "s" | "xs">("m");
   const iData = data[0];
   const {_id} = iData;
   console.log("card data is ->", data);
@@ -43,8 +45,14 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
     });
     const result = await res.json();
     console.log("item id added",result)
-  }
+  };
 
+  // manage the active tab
+  const handleSize = (size : any) => {
+    setActive(size);
+    toast.success(`Size ${size} selected`)
+  };
+  
   return (
     <div className="products p-8 lg:p-20 w-full h-auto">
       {data &&
@@ -86,13 +94,15 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                 </div>
                 <div className="size">
                   <p className="text-primary">SELECT SIZE</p>
-                  <ul className="size flex gap-8 mt-4">
-                    <li>XS</li>
-                    <li>S</li>
-                    <li>M</li>
-                    <li>L</li>
-                    <li>XL</li>
-                  </ul>
+                    <div className="">
+                       <ul className="size flex gap-8 mt-4">
+                          <li className={`${active == "xs" ? "bg-[#000000] font-semibold text-white" : "text-primary"}`} onClick={() => handleSize("xs")} >XS</li>
+                          <li className={`${active == "s" ? "bg-[#000000] text-white" : ""}`} onClick={() => handleSize("s")} >S</li>
+                          <li className={`${active == "m" ? "bg-[#000000] text-white" : ""}`} onClick={() => handleSize("m")} >M</li>
+                          <li className={`${active == "l" ? "bg-[#000000] text-white" : ""}`} onClick={() => handleSize("l")} >L</li>
+                          <li className={`${active == "xl" ? "bg-[#000000] text-white" : ""}`} onClick={() => handleSize("xl")} >XL</li>
+                      </ul>
+                    </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <h1 className="font-bold text-base text-black">Quantity :</h1>

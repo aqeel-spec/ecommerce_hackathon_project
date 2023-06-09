@@ -4,6 +4,7 @@ import { Toast } from "react-toastify/dist/types";
 import { ToastContainer, toast } from 'react-toastify';
 import { Context } from "vm";
 import { Product } from "../types/product";
+import 'react-toastify/dist/ReactToastify.css';
 
 // export type Product = {
 //     _id : string,
@@ -91,6 +92,10 @@ const onAdd = (product: Product, quantity: number) => {
 
       setCartItems([...cartItems, { ...product }]);
     }
+    toast.success(`${qty} ${product.name} added to the cart.`,{
+      position: toast.POSITION.TOP_RIGHT,
+      className: "text-red-500",
+    })
 };
 
 // remove items from cart
@@ -103,6 +108,10 @@ const onRemove = (product: Product) => {
     );
     setTotalQty((prevTotalQty) => prevTotalQty - foundProduct!.quantity);
     setCartItems(newCartItems);
+    toast.success(`Successfully removed from cart.`,{
+      position: toast.POSITION.TOP_RIGHT,
+      className: "text-red-500",
+    })
 };
 
 // toggle alert
@@ -162,8 +171,9 @@ const decQty = () => {
             setTotalPrice,
             setTotalQty 
           }}
-        >
+          >   <ToastContainer />
             {children}
+           
         </CartContext.Provider>
     )
 }

@@ -1,7 +1,6 @@
 "use client"
 import Image from "next/image";
 import {  Search, ShoppingCart } from "lucide-react";
-import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,13 +12,14 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "./../ui/navigation-menu";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import {RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 
 // value using useContext
 import { useState, useRef, useContext, useEffect } from 'react';
 import { SearchContext } from "@/src/context/searchContext";
 import { useStateContext } from "@/src/context/cartContext";
+import Link from "next/link";
 
 const manuLi = [
   {
@@ -40,8 +40,8 @@ const manuLi = [
   }
 ]
 
-const Navbar = async () => {
-  const router = useRouter();
+const Navbar =  () => {
+  // const router = useRouter();
 
   const [toggleMenu, setToggleMenu] = useState(false);
   const {search,setSearch} = useContext(SearchContext);
@@ -59,7 +59,9 @@ const Navbar = async () => {
 
   return (
     <nav className="flex lg:px-20 px-10 justify-between items-center h-20 ">
-  <Image src="/Logo.webp" alt="website logo" onClick={() => router.push(`/`)} width={150} height={150} className="hover:cursor-pointer"/>
+  <Link href={`/`}>
+  <Image src="/Logo.webp" alt="website logo"  width={150} height={150} className="hover:cursor-pointer"/>
+  </Link>
   <div className="lg:flex hidden ">
     <NavigationMenu>
       <NavigationMenuList>
