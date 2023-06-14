@@ -3,12 +3,14 @@ import Events from '@/components/section/Events';
 import Product from '@/components/section/Product';
 import Features from '@/components/section/Features';
 import NewsLetters from '@/components/section/NewsLetters';
-
+import UserInfo from '@/components/userInfo';
 
 export default async function Home() {
   return (
 
     <div className='lg:px-20 px-10 '> 
+    {/* clert sugnOut button */}
+      <UserInfo />
      { /** hero section */ }
      <Hero />
       { /** events promotion */ }
@@ -19,6 +21,7 @@ export default async function Home() {
       <Features />
       {/** newsletter subscription */}
       <NewsLetters />
+      
       
     </div>
   )

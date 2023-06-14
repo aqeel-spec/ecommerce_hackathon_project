@@ -20,6 +20,7 @@ import { useState, useRef, useContext, useEffect } from 'react';
 import { SearchContext } from "@/src/context/searchContext";
 import { useStateContext } from "@/src/context/cartContext";
 import Link from "next/link";
+import {CiLogin} from "react-icons/ci";
 
 const manuLi = [
   {
@@ -45,14 +46,13 @@ const Navbar =  () => {
 
   const [toggleMenu, setToggleMenu] = useState(false);
   const {search,setSearch} = useContext(SearchContext);
-
-  
   
  
 
   const handleClick = () => {
     setToggleMenu(!toggleMenu)
   }
+  
    
 
   const {showCart, setShowCart, totalQty} = useStateContext();
@@ -89,6 +89,11 @@ const Navbar =  () => {
       className="rounded-r border-none p-[5px] w-full text-sm "
     />
   </div>
+  <div className="flex  items-center justify-center hover:ease-in-out ">
+    <Link href={'/sign-in'}>
+      <CiLogin className="h-8 w-8 hover:animate-bounce md:flex hidden "/>
+    </Link>  
+  </div> 
   {
     showCart ? (
       <Link onClick={() => setShowCart(false)} href={`/cart`} className="lg:flex hidden p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
@@ -106,6 +111,7 @@ const Navbar =  () => {
     </div>
     )
   }
+  
   <div className={`  lg:hidden items-end w-[300px] relative flex flex-col`}>
         {!toggleMenu ? (
           <div className=" cursor-pointer " onClick={handleClick} >
@@ -116,16 +122,29 @@ const Navbar =  () => {
           <>
             <RiCloseLine className="h-7 w-7 cursor-pointer" onClick={handleClick} />
             <ul className={`dropDown_box pb-12 `}>
+            
             {manuLi.map((menu , i) => (
               <li key={i} className='space-y-6 my-2 hover:border-l-white hover:border-l-4 w-full  rounded-r-lg py-2 hover:bg-sky-200  ' >
-                <Link href={`${menu.path}`}  >
+                <Link href={`${menu.path}`} onClick={handleClick} >
                   <span className={` hover:border-b-2 px-2 pb-1 `}>{menu.name}</span>
                 </Link>
+                
               </li>
             ))}
+             <Link onClick={() => setShowCart(false)} href={`/cart`} className=" flex flex-col p-3 hover:cursor-pointer hover:-translate-y-1 hover:scale-110 rounded-full bg-gray-200 transition ease-in delay-150 duration-200 relative">
+                  <span className="absolute top-1 right-1 transform translate-x-2 -translate-y-2 h-6 w-6 text-center rounded-full bg-red-500 text-white">
+                  {totalQty}
+                  </span>
+                  <ShoppingCart className="" onClick={handleClick}/>
+              </Link>
+              <div className="flex  items-center justify-center hover:ease-in-out ">
+              <Link href={'/sign-in'} onClick={handleClick}>
+                <CiLogin className="h-8 w-8 hover:animate-bounce "/>
+              </Link>  
+  </div> 
         </ul>
           </>
-
+ 
         ) }
   </div>
 </nav>
