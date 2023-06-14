@@ -1,7 +1,7 @@
 import { client } from "@/src/lib/sanityClient";
 import { usePathname, useRouter } from "next/navigation";
 import { IProduct } from "@/src/types/product";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "./ImageBuilder";
 import { Button } from "./ui/button";
@@ -10,30 +10,21 @@ import { formatPrice } from "@/src/lib/helper";
 import { useStateContext } from "@/src/context/cartContext";
 import { toast } from "react-toastify";
 
+interface StoreData {
+  id : number ,
+  product_id : string,
+  user_id : string,
+  quantity : number
+
+}
+
+
 const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [index, setIndex] = useState(0);
   const [active,setActive] = useState<"xl" | "m" | "l" | "s" | "xs">("m");
-  const iData = data[0];
-  const {_id} = iData;
-  console.log("card data is ->", data);
-  console.log("id of product is ::",_id)
 
   const {decQty, incQty, qty, onAdd} = useStateContext();
-
-  // const handleAddToCart = useCallback(async () => {
-  //   try {
-  //     const res = await fetch(`/api/cart`, {
-  //       method: "POST",
-  //       body: JSON.stringify({
-  //         product_id: _id
-  //       })
-  //     });
-  //     const result = await res.json();
-  //     console.log("item id added", result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [_id]);
+  
 
   const handleAddToCart = async (id : string , quantity : number ) => {
     const res = await fetch(`/api/cart`,{
@@ -47,6 +38,7 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
     console.log("item id added",result)
   };
 
+ 
   // manage the active tab
   const handleSize = (size : any) => {
     setActive(size);
@@ -114,8 +106,8 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                 </div>
                 <div className="flex flex-nowrap gap-2 items-center">
                   <Button onClick={() => {
-                    handleAddToCart(item._id , qty),
-                    onAdd(item,qty)
+                    handleAddToCart(item._id , qty)
+                     onAdd(item,qty)
                   }}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
                     <CgShoppingCart size={20} /> Add to card
                   </Button>

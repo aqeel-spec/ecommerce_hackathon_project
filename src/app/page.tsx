@@ -1,8 +1,4 @@
 import Hero from '@/components/section/Hero';
-import React from 'react'
-// import myConfiguredSanityClient from './sanityClient'
-import imageUrlBuilder from '@sanity/image-url'
-// import { product } from '../../sanity/product';
 import Events from '@/components/section/Events';
 import Product from '@/components/section/Product';
 import Features from '@/components/section/Features';
@@ -10,10 +6,6 @@ import NewsLetters from '@/components/section/NewsLetters';
 
 
 export default async function Home() {
-
-
-  //const data : IProduct[] = await productData();
-
   return (
 
     <div className='lg:px-20 px-10 '> 

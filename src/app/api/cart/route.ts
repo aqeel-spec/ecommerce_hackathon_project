@@ -4,6 +4,8 @@ import { sql } from "@vercel/postgres";
 import { v4 as uuid } from "uuid";
 import { cookies } from "next/dist/client/components/headers";
 import { setAtPath } from "sanity";
+import { eq } from "drizzle-orm";
+import { request } from "http";
 
 export const GET = async (request : NextRequest , response: NextResponse) => {
   try {
@@ -16,8 +18,10 @@ export const GET = async (request : NextRequest , response: NextResponse) => {
          quantity int NOT NULL 
           )
         `;
-    const res = await db.select().from(cartTable);
-    return NextResponse.json({ res });
+      const user_id : string | any = cookies().get("user_id")?.value;
+    // const res = await db.select().from(cartTable);
+    const res = await db.select().from(cartTable).where(eq(cartTable.user_id, user_id ));
+    return NextResponse.json( res  );
   } catch (error) {
     console.log((error as { message: string }).message);
     return NextResponse.json({ msg: "something went wrong" });
@@ -51,3 +55,16 @@ export const POST = async (request : NextRequest) => {
         return NextResponse.json({ message : (error as {message : string}).message })
     }
 }
+export const DELETE = async (request : NextRequest) => {
+  try {
+      const user_id : string | any = cookies().get("user_id")?.value;
+    // const res = await db.select().from(cartTable);
+    const res = await db.delete(cartTable).where(eq(cartTable.user_id ,user_id )).returning()
+    return NextResponse.json( res  );
+  } catch (error) {
+    console.log((error as { message: string }).message);
+    return NextResponse.json({ msg: "something went wrong" });
+  }
+
+}
+

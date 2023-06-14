@@ -28,12 +28,12 @@ const page = async ({params  }: { params: { details: string }  } ) => {
   const slug = params.details;
   const data = await productDdata(slug);
 
-  console.log("Data from details section:", data);
+  console.log("Data from details section:",data && data);
 
 
   return (
     <>
-      <DetailCard data={data} />
+      <DetailCard data={data && data} />
     </>
   )
 }

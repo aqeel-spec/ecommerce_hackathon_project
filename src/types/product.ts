@@ -18,3 +18,10 @@ export interface IProduct extends Product {
     usecase: {category : string} ,
     // quantity? : number | any
 }
+export interface StoreData {
+    id : number ,
+    product_id : string,
+    user_id : string,
+    quantity : number
+  
+  }
