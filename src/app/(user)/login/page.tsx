@@ -54,7 +54,7 @@ export default  function Signin() {
             </div>
             <div className="text-form my-4">
               <div className="space-x-1 text-sm text-center md:text-base font-nunito">
-                <span>Don't have an account?</span>
+                <span>Don&apost have an account?</span>
                 <a className="font-semibold text-blue-600" href="/signUp">
                   Register
                 </a>
