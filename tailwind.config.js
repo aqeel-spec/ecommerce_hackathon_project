@@ -22,6 +22,15 @@ module.exports = {
     },
     extend: {
       colors: {
+        dataOrange : "#E5B945",
+        textColor: '#A4A4A4',
+        form: '#B8B8B8',
+        orange: '#F2B132',
+        rating: '#9E9A9A',
+        hamerBurger: '#B6BDC9',
+        text: '#EFEFEF',
+        backround: '#312437',
+        // default colors
         primary : "#212121",
         watermark : "#f2f3f7",
         shade : "#666666",

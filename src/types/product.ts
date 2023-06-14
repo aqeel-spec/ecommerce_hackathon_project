@@ -25,3 +25,10 @@ export interface StoreData {
     quantity : number
   
   }
+export type SignUpData = {
+    name : string,
+    email : string,
+    password : string,
+    confirmPassword : string,
+    conditionAgree : boolean
+}

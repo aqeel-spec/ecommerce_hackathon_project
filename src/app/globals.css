@@ -347,4 +347,13 @@
    .success .email-msg {
     @apply  my-4 md:text-lg font-semibold text-center
    }
+   .label_input {
+    @apply text-form font-medium block mt-4;
+  }
+  .input_section {
+    @apply ring-[0.3px] ring-fuchsia-50 bg-gradient-to-r from-[#514756] via-[#473B4C] to-[#382C3E] w-full p-2 pl-10  placeholder-form rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300
+  }
+  .error_msg {
+    @apply text-sm text-red-500 pl-2 pt-2;
+  }
 }
