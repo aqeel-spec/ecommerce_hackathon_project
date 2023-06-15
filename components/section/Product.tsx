@@ -9,25 +9,26 @@ import { products } from './dummyProduct';
 import { client } from '@/src/lib/sanityClient';
 import { urlFor } from '../ImageBuilder';
 import { formatPrice } from '@/src/lib/helper';
+import AllProductsCard from '../AllProductsCard';
+import { IProduct } from '@/src/types/product';
 
-// type HProduct = {
-//   name : string,
-//   images : any[],
-//   price : number,
-//   _id : string,
-//   slug : string
-// }
 
-const Product =  () => {
+const getData  = async  () => {
+  const res : IProduct[] = await client.fetch(`*[_type == "products"]{
+    name,
+    images,
+    price,
+    _id,
+    slug
+  }`)
+  console.log("data for homepage product",res)
+  return res
+}
 
-  // const res : HProduct[] = await client.fetch(`*[_type == "products"]{
-  //   name,
-  //   images,
-  //   price,
-  //   _id,
-  //   slug
-  // }`)
-  // console.log("data for homepage product",res)
+const Product = async ( ) => {
+ 
+  const data = await getData();
+  
 
   return (
     <div className='py-[30px] event-container'>
@@ -64,13 +65,12 @@ const Product =  () => {
           className='Allproducts-container  pt-4 flex flex-grow justify-center'
             
         >
-          {products.map((product, index) => (
+          {data.map((product, index) => (
             <SwiperSlide key={index} className='  cursor-pointer '>
-              
-              <Link className="product-card flex flex-col  items-center" href={`#${product.name}`}>
+              <Link className="product-card flex flex-col  items-center" href={`product/${product.slug.current}`}>
                 <Image 
                    // src={urlFor(product.images[0]).url()}
-                   src={product.image}
+                   src={urlFor(product.images[0]).url()}
                   alt={`product ${index + 1}`}
                    height={800} width={480} />
                 <p className="product-name ">{product.name}</p>

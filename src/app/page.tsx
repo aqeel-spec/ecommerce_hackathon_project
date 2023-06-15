@@ -26,39 +26,3 @@ export default async function Home() {
     </div>
   )
 }
-// interface IProduct {
-//   title : string,
-//   description : string,
-//   _id : string,
-//   image : any
-// }
-
-
-{/** ###################### I created image builder in components ##################### */}
-// const builder = imageUrlBuilder(client)
-// export function urlFor(source : any) {
-//   return builder.image(source)
-// }
-
-
-
-// export const productData =async () => {
-//   const res = await client.fetch(`*[_type=='product']{
-//     title,
-//     description,
-//     _id,
-//     image
-//   }`)
-//   return res
-// }
-    // <div className="">
-    //   {
-    //     data.map((item) => (
-    //       <div className="border-2 shadow-lg p-4 bg-sky-200 mx-auto my-2 max-w-sm  justify-center "  key={item._id}>
-    //         <Image src={urlFor(item.image).url()} alt={item.title} height={270} width={250} />
-    //         <h1> {item.title} </h1>
-    //         <p> {item.description} </p>
-    //       </div>
-    //     ))
-    //   }
-    // </div>
