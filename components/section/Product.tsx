@@ -11,10 +11,11 @@ import { urlFor } from '../ImageBuilder';
 import { formatPrice } from '@/src/lib/helper';
 import AllProductsCard from '../AllProductsCard';
 import { IProduct } from '@/src/types/product';
+import { useEffect, useState } from 'react';
 
 
 const getData  = async  () => {
-  const res : IProduct[] = await client.fetch(`*[_type == "products"]{
+  const res  = await client.fetch(`*[_type == "products"]{
     name,
     images,
     price,
@@ -25,9 +26,17 @@ const getData  = async  () => {
   return res
 }
 
-const Product = async ( ) => {
+const Product =  ( ) => {
  
-  const data = await getData();
+  const [data,setData] = useState<IProduct[] >();
+  useEffect(() => {
+    const fetchProduct =async () => {
+      const res = await getData();
+      setData(res)
+    }
+    fetchProduct()
+  }, [])
+  
   
 
   return (
@@ -65,7 +74,7 @@ const Product = async ( ) => {
           className='Allproducts-container  pt-4 flex flex-grow justify-center'
             
         >
-          {data.map((product, index) => (
+          { data && data.map((product, index) => (
             <SwiperSlide key={index} className='  cursor-pointer '>
               <Link className="product-card flex flex-col  items-center" href={`product/${product.slug.current}`}>
                 <Image 
