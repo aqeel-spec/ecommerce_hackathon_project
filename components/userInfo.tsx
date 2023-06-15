@@ -1,7 +1,7 @@
 "use client"
 import { UserButton, useUser } from "@clerk/nextjs";
 
-export default function Example() {
+export default function Example({msg , greeting} : {msg : string, greeting : string} ) {
   const { isLoaded, isSignedIn, user } = useUser();
 
   if (!isLoaded || !isSignedIn) {
@@ -12,7 +12,7 @@ export default function Example() {
   return (
     <>
      <div className="ml-auto flex justify-end  items-center gap-2 p-2 ">
-        <h4>Hello, <span className="text-primary font-semibold">{user.firstName}</span> welcome to Dino Market</h4>
+        <h4>{greeting}, <span className="text-primary font-semibold">{user.firstName}</span> {msg} </h4>
         <UserButton afterSignOutUrl="/"/>
      </div>
     </>

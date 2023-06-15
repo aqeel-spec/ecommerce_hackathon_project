@@ -10,7 +10,7 @@ export default async function Home() {
 
     <div className='lg:px-20 px-10 '> 
     {/* clert sugnOut button */}
-      <UserInfo />
+      <UserInfo greeting='Hello' msg={"welcome to Dino Market"} />
      { /** hero section */ }
      <Hero />
       { /** events promotion */ }

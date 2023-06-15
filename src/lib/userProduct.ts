@@ -1,7 +1,7 @@
 import { client } from "./sanityClient";
 
 async function vercelProduct() {
-    const res = await fetch(`http://localhost:3000/api/cart`, {
+    const res = await fetch(`https://ecommerce-hackathon-project.vercel.app/api/cart`, {
       cache: "no-store",
     });
     try {

@@ -9,6 +9,8 @@ import {  toast } from 'react-toastify';
 import getStripe from '@/src/lib/getStripe';
 import { client } from '@/src/lib/sanityClient';
 import Product from '@/components/section/Product';
+import UserMsg from '@/components/userInfo';
+import { useUser } from '@clerk/nextjs';
 // 
 interface StoreData {
     id : number ,
@@ -41,6 +43,9 @@ const productData = async (product_id: string) => {
 const Cart = async () => {
 
     const {cartItems, totalPrice, totalQty, onRemove, toggleCartItemQuantity} = useStateContext();
+
+    // get session from clerk
+    const { isLoaded, isSignedIn, user } = useUser();
 
     // stripe payment option
     const handlePayNow = async () => {
@@ -96,7 +101,10 @@ const Cart = async () => {
   return (
     <div className='  md:p-12 justify-center items-center mx-auto '>
     {/* name */}
-    <h2 className='text-3xl md:text-left text-center  font-bold text-primary '>Shopping Cart</h2>
+    <div className="flex flex-row md:flex-col justify-between  ">
+        <h2 className='text-3xl md:text-left text-center  font-bold text-primary '>Shopping Cart</h2>
+        <UserMsg greeting='Hi' msg='hope you will enjoy our products' />
+    </div>
     {/* cart container */}
    <div className=" mx-auto flex gap-4 p-8 lg:flex-row flex-col ">
    <div className="  mt-8 ">
@@ -104,7 +112,7 @@ const Cart = async () => {
         {/* <div className="flex flex-col gap-4 md:gap-16 mt-8 flex-1" */}
             {/* empty cart */}
             {cartItems.length < 1 && (
-                    <div className="flex flex-col m-auto ">
+                    <div className="flex flex-col mx-auto ">
                         <AiOutlineShopping size={150} />
                         <h1 className='text-3xl lg:text-2xl md:text-xl font-bold text-primary '>Your shopping bag is empty.</h1>
                     </div>
@@ -125,8 +133,12 @@ const Cart = async () => {
                             <div className="flex  gap-4 md:justify-evenly ">
                                 <h3 className=' text-xl md:text-2xl lg:text-3xl  text-primary  '> {item.name} </h3>
                                 <button type='button' className='ml-auto hover:text-red-500' onClick={() => {
-                                    onRemove(item);
-                                    handleDeleteItem(item._id)
+                                     if(!isLoaded || !isSignedIn) {
+                                        toast.error("You cannot proceed to checkout untill you login.")
+                                      }else {
+                                        onRemove(item);
+                                        handleDeleteItem(item._id)
+                                      }
                                 }}>
                                 <HiOutlineTrash size={28} />  
                                 </button>
@@ -181,6 +193,7 @@ const Cart = async () => {
                     </div>
                     <div className=" text-end mx-auto items-center justify-center justify-items-center text-white font-sans  ">
                     <button type="button" onClick={() => {
+
                         handlePayNow();
                         handleDeleteNow();
                     }} className="hbtn mx-auto justify-end px-5 py-[2px] rounded-[4px] w-full bg-primary  ">

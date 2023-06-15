@@ -1,22 +1,12 @@
-import { client } from "@/src/lib/sanityClient";
-import { usePathname, useRouter } from "next/navigation";
 import { IProduct } from "@/src/types/product";
-import React, { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
+import React, {  useState } from "react";
 import { urlFor } from "./ImageBuilder";
 import { Button } from "./ui/button";
 import { CgShoppingCart } from "react-icons/cg";
 import { formatPrice } from "@/src/lib/helper";
 import { useStateContext } from "@/src/context/cartContext";
 import { toast } from "react-toastify";
-
-interface StoreData {
-  id : number ,
-  product_id : string,
-  user_id : string,
-  quantity : number
-
-}
+import {  useUser } from '@clerk/nextjs';
 
 
 const DetailCard = ({ data }: { data: IProduct[] }) => {
@@ -24,6 +14,8 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
   const [active,setActive] = useState<"xl" | "m" | "l" | "s" | "xs">("m");
 
   const {decQty, incQty, qty, onAdd} = useStateContext();
+  // get current signIn user
+  const { isLoaded, isSignedIn, user } = useUser();
   
 
   const handleAddToCart = async (id : string , quantity : number ) => {
@@ -106,8 +98,12 @@ const DetailCard = ({ data }: { data: IProduct[] }) => {
                 </div>
                 <div className="flex flex-nowrap gap-2 items-center">
                   <Button onClick={() => {
-                    handleAddToCart(item._id , qty)
-                     onAdd(item,qty)
+                     if(!isLoaded || !isSignedIn) {
+                      toast.error("You must signIn to perform to add products.")
+                    }else {
+                      handleAddToCart(item._id , qty)
+                      onAdd(item,qty)
+                    }
                   }}  className="hbtn rounded-xl text-base lg:text-lg  font-normal gap-1 m-2 p-6 text-white">
                     <CgShoppingCart size={20} /> Add to card
                   </Button>
